@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet"
+		th:href="@{/css/updateForm.css}" />
+	<title>Computer Inventory</title>
+</head>
+
+<body>
+<div id="viewport">
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <header>
+      My App
+    </header>
+    <ul class="nav">
+      <li>
+        <a th:href="@{/ComputerRelease/showRelease(ComputerID=${id})}">
+          Show history
+        </a>
+        </br>
+      </li>
+      
+      <li>
+        <a th:href="@{/computer/showComputerList}">
+           Back to list of computers
+        </a>
+        </br>
+      </li>
+      
+    </ul>
+  </div>
+  <!-- Content -->
+  <div id="content">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href="#"><i class="zmdi zmdi-notifications text-danger"></i>
+            </a>
+          </li>
+          <li><a href="#">Test User</a></li>
+        </ul>
+      </div>
+    </nav>
+		<div class="container-fluid">
+			<h3>History of</h3>
+			<h4><p th:text="${computer.name}">Computer name</p></h4>
+			<hr>
+			<!-- Add a button -->
+			
+			<a th:href="@{/ComputerRelease/showFormForAdd(ComputerID=${id})}"
+				class="btn btn-primary btn-sm mb-3">
+				Add release
+			</a>
+			<table class="table table-bordered table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th>ID</th>
+						<th>First name</th>
+						<th>Last name</th>
+						<th>Release Date</th>
+						<th>Returning Date</th>
+						<th>Action</th>
+						
+					</tr>
+				</thead>
+				
+				<!-- Table shows all (past and present) releases of exact computer -->
+				<!-- model computerHistoryList comes from ComputerReleasesController class showRelease method -->
+				<tbody>
+					<tr th:each="tempRelease : ${computerHistoryList}">
+						<td th:text="${tempRelease.id}" />
+						
+						<td th:text="${tempRelease.user.firstName}" />
+						<td th:text="${tempRelease.user.lastName}" />
+						<td th:text="${tempRelease.releaseDate}" />
+						<td th:text="${tempRelease.returningDate}" />
+						
+						<td>
+							<!-- Add update button/link -->
+							<a th:href="@{/ComputerRelease/showFormForUpdate(ComputerID=${tempRelease.computer.id}, ReleaseID=${tempRelease.id})}"
+								class="btn btn-info btn-sm">
+								Update
+							</a>
+							
+							<!-- Add delete button/link -->
+							<a th:href="@{/ComputerRelease/delete(computerReleaseId=${tempRelease.id}, ComputerID=${tempRelease.computer.id})}"
+								class="btn btn-danger btn-sm"
+								onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
+								Delete
+							</a>
+						</td>
+						
+					</tr>
+				</tbody>
+			
+			</table>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

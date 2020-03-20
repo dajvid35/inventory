@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>Save User</title>
+</head>
+
+<body>
+	<div class="container">
+	
+		<h3>IT inventory</h3>
+		<hr>
+		
+		<p class="h4 mb-4">Save User</p>
+		
+		<!-- User save comes from UserController class showFormForAdd method -->
+		<!-- submit sends model to UserController class save method -->
+		<form action="#" th:action="@{/user/save}"
+						 th:object="${user}" method="POST">
+						 
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}" />
+						 
+			<!-- *{...} selects property on referenced th:object -->
+			
+			<input type="text" th:field="*{firstName}"
+					class="form-control mb-4 col-4" placeholder="First name">
+					
+			<input type="text" th:field="*{lastName}"
+					class="form-control mb-4 col-4" placeholder="Last name">		
+					
+			<button type="submit" class="btn btn-info col-s">Save</button>
+		
+		</form>
+		<hr>
+	
+	</div>
+
+</body>
+</html>

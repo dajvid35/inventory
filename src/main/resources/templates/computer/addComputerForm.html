@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+		th:href="@{/css/updateForm.css}" />
+	<title>Save Computer</title>
+</head>
+
+<body>
+<div id="viewport">
+ <!-- Sidebar -->
+  <div id="sidebar">
+    <header>
+      My App
+    </header>
+    <ul class="nav">
+      <li>
+        <a th:href="@{/ComputerRelease/showRelease(ComputerID=${computer.id})}">
+          Show history
+        </a>
+        </br>
+      </li>
+      
+      <li>
+        <a th:href="@{/computer/showComputerList}">
+           Back to list of computers
+        </a>
+        </br>
+      </li>
+      
+      <li>
+        <a th:href="@{/menu}">
+           Back to menu
+        </a>
+        </br>
+      </li>
+      
+    </ul>
+  </div>
+	<div id="content">
+    
+    <div class="container-fluid">
+      <h3>IT inventory</h3>
+		<hr>
+		
+		<p class="h4 mb-4">Save Computer</p>
+		
+		<!-- model computer comes from ComputerController showFormForAdd method -->
+		<!-- after submit model goes to ComputerController class save method -->
+		<form action="#" th:action="@{/computer/save}"
+						 th:object="${computer}" method="POST">
+						 
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}" />
+						 
+			<!-- *{...} selects property on referenced th:object -->
+			Name:
+			<input type="text" th:field="*{name}"
+					class="form-control mb-4 col-4" placeholder="Name">
+			Serial number:		
+			<input type="text" th:field="*{serialNumber}"
+					class="form-control mb-4 col-4" placeholder="Serial Number">	
+			Inventory:
+			<input type="text" th:field="*{inventoryNumber}"
+					class="form-control mb-4 col-4" placeholder="Inventory Number">
+			Model:	
+			<div class="form-row">	
+				<div class="col">	
+						
+					<select th:field="${tmpModelId.tmpId}"
+						class="form-control" id="exampleFormControlSelect1">
+		                         <option th:each="theModel : ${models}"
+		                                 th:value="${theModel.id}"
+		                                 th:utext="${theModel.getModelName()} + ' ' + ${theModel.getManufacturer().getName()}">
+		                         </option>
+		            </select>
+	            </div>
+	            <div class="col">
+		            <a th:href="@{/model/showFormForAdd}"
+						class="btn btn-primary btn-sm mb-3">
+						+
+					</a>
+				</div>
+            </div>
+			Comment:
+	  		
+					
+			<textarea th:field="*{comment}" class="form-control" rows="5"></textarea>
+			
+					
+			<button type="submit" class="btn btn-info col-s">Save</button>
+		
+		</form>
+		<hr>
+	</div>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>Save Computer</title>
+</head>
+
+<body>
+	<div class="container">
+	
+		<h3>IT inventory</h3>
+		<hr>
+		
+		<p class="h4 mb-4">Add Release</p>
+		 
+		<form action="#" th:action="@{/ComputerRelease/update(ComputerID=${computerId})}"
+						 th:object="${computerRelease}" method="POST">
+						 
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}" />
+										
+			<!-- <input type="text" th:field="*{computer.id}" /> -->
+						 
+			<!-- *{...} selects property on referenced th:object -->
+			
+			<input type="date" th:field="*{releaseDate}">
+			<input type="date" th:field="*{returningDate}">		
+			
+			 		
+			<select th:field="${tmpUserId.tmpId}"
+				class="form-control" id="exampleFormControlSelect1">
+                         <option th:each="theUser : ${users}"
+                                 th:value="${theUser.id}"
+                                 th:utext="${theUser.getLastName()} + ' ' + ${theUser.getFirstName()}">
+                         </option>
+            </select>
+				
+			<button type="submit" class="btn btn-info col-s">Save</button>
+		
+		</form>
+		
+		
+		
+		
+		<!--   <a th:href="@{/upload2/listFiles">
+          Add files
+         </a>-->
+         
+         <form action="#" th:action="@{/upload2/listFilesPost(ReleaseID=${computerRelease.id})}" method="POST">
+						 
+			<button type="submit" class="btn btn-info col-s">Added documents</button>
+		
+		</form>
+	
+	</div>
+
+</body>
+</html>
